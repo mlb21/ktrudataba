@@ -3,67 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Album Collection</title>
+    <title>KTRU Album Collection</title>
     <style>
-        /* Light Mode Styles */
-        body.light-mode {
-            background-color: #f7f7f7;
-            color: #333;
-        }
-        .search-container, .album-card, .modal-content {
-            background-color: #fff;
-            color: #333;
-        }
-
-        /* Dark Mode Styles */
-        body.dark-mode {
-            background-color: #121212;
-            color: #f7f7f7;
-        }
-        .dark-mode .search-container,
-        .dark-mode .album-card,
-        .dark-mode .modal-content {
-            background-color: #333;
-            color: #f7f7f7;
-        }
-        .dark-mode .album-card p,
-        .dark-mode .modal-details p,
-        .dark-mode h1 {
-            color: #ddd;
-        }
-        .dark-mode .tracklist {
-            background-color: #444;
-            border-color: #666;
-        }
-
-        /* Toggle Button */
-        .dark-mode-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            cursor: pointer;
-            font-size: 24px;
-            background: none;
-            border: none;
-            color: #333;
-        }
-        .dark-mode .dark-mode-toggle {
-            color: #f7f7f7;
-        }
-        
+        /* General Styles */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f7f7f7;
+            background-color: #000; /* Black background */
+            color: #FFC300; /* Yellow text */
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         h1 {
-            color: #5E5B9A;
             text-align: center;
             padding: 20px 0;
             margin: 0;
             font-size: 2.5rem;
+            color: #FFC300; /* Yellow heading */
         }
         .search-container {
             display: flex;
@@ -71,24 +27,29 @@
             justify-content: center;
             gap: 10px;
             padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: #121212; /* Dark gray */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
             margin-bottom: 20px;
+            border-radius: 10px;
         }
         .search-container input[type="text"],
         .search-container input[type="number"] {
             padding: 12px;
             margin: 5px;
-            border: 1px solid #ddd;
+            border: 1px solid #FFC300; /* Yellow border */
             border-radius: 5px;
+            background-color: #333; /* Darker gray background */
+            color: #FFC300; /* Yellow text */
             width: 200px;
-            box-sizing: border-box;
             font-size: 1rem;
+        }
+        .search-container input::placeholder {
+            color: #777; /* Lighter gray for placeholder */
         }
         .search-container button {
             padding: 12px 20px;
-            background-color: #5E5B9A;
-            color: #fff;
+            background-color: #FFC300; /* Yellow button */
+            color: #000; /* Black text */
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -96,7 +57,7 @@
             transition: background-color 0.3s ease;
         }
         .search-container button:hover {
-            background-color: #4e4a7c;
+            background-color: #FFD700; /* Slightly brighter yellow on hover */
         }
         .results-container {
             display: grid;
@@ -105,11 +66,11 @@
             padding: 20px;
         }
         .album-card {
-            background-color: #fff;
+            background-color: #222; /* Dark gray */
             padding: 15px;
             border-radius: 10px;
-            border: 1px solid #ddd;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border: 1px solid #FFC300; /* Yellow border */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
             cursor: pointer;
             transition: transform 0.2s ease;
         }
@@ -121,16 +82,17 @@
             height: auto;
             border-radius: 8px;
             margin-bottom: 10px;
+            border: 1px solid #FFC300; /* Yellow border around images */
         }
         .album-card h3 {
             font-size: 1.2rem;
             margin: 0 0 10px;
-            color: #333;
+            color: #FFC300; /* Yellow text */
         }
         .album-card p {
             margin: 0 0 10px;
             font-size: 1rem;
-            color: #555;
+            color: #FFF; /* White text for secondary information */
         }
         .modal {
             display: none;
@@ -139,69 +101,48 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.8);
             z-index: 1000;
             justify-content: center;
             align-items: center;
         }
         .modal-content {
-            background-color: #fff;
+            background-color: #121212; /* Dark gray modal background */
             padding: 20px;
             border-radius: 10px;
             max-width: 800px;
             width: 90%;
             display: flex; /* Flexbox for layout */
             position: relative; /* Allow positioning of close button */
-        }
-        .modal-image {
-            flex: 1;
-            margin-right: 20px; /* Space between image and details */
+            border: 1px solid #FFC300; /* Yellow border */
         }
         .modal-image img {
             width: 150px;
             height: auto;
             border-radius: 8px;
-        }
-        .modal-details {
-            flex: 2; /* Give more space to the details */
+            border: 1px solid #FFC300; /* Yellow border */
         }
         .modal-details h2 {
             margin: 0;
             font-size: 1.5rem;
-            color: #333;
+            color: #FFC300; /* Yellow text */
         }
         .modal-details p {
             margin: 5px 0;
             font-size: 1rem;
-            color: #555;
-        }
-        .tracklist {
-            max-height: 200px; /* Max height for scrollable tracklist */
-            overflow-y: auto; /* Enable vertical scrolling */
-            margin-top: 10px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f9f9f9;
+            color: #FFF; /* White text */
         }
         .close {
             font-size: 28px;
             font-weight: bold;
-            color: #aaa;
-            position: absolute; /* Positioning the close button */
-            top: 15px; /* Space from the top */
-            right: 20px; /* Space from the right */
+            color: #FFC300; /* Yellow close button */
+            position: absolute;
+            top: 15px;
+            right: 20px;
             cursor: pointer;
         }
         .close:hover {
-            color: #333;
-        }
-        @media (max-width: 768px) {
-            .search-container input[type="text"],
-            .search-container input[type="number"] {
-                width: 150px;
-            }
+            color: #FFD700; /* Brighter yellow on hover */
         }
     </style>
     <script>
@@ -253,10 +194,13 @@
                 });
             }
         }
-
         function showAlbumDetails(album) {
             const modal = document.getElementById('albumModal');
             const modalContent = document.getElementById('modalContent');
+
+            console.log(album);
+
+
             modalContent.innerHTML = `
                 <span class="close" onclick="closeModal()">&times;</span>
                 <div class="modal-image">
@@ -268,30 +212,23 @@
                     <p><strong>Genre:</strong> ${album.genre}</p>
                     <p><strong>Style:</strong> ${album.style}</p>
                     <p><strong>Year:</strong> ${album.year}</p>
-                    <p><strong>Label:</strong> ${album.label}</p>
                     <p><strong>Shelf Location:</strong> ${album.shelf_label}</p>
-                    <p><strong>Category Number:</strong> ${album.category_number}</p>
                     <div class="tracklist">
                         <strong>Tracklist:</strong><br>
-                        ${album.tracks.map(track => `<p>${track}</p>`).join('')}
+                        ${album.tracklist.map(track => `<p>${track}</p>`).join('')}
                     </div>
                 </div>
             `;
             modal.style.display = 'flex';
         }
-
         function closeModal() {
             document.getElementById('albumModal').style.display = 'none';
         }
 
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-        }
     </script>
 </head>
 <body>
-    <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</button>
-    <h1>Album Collection</h1>
+    <h1>KTRU Album Collection</h1>
     <div class="search-container">
         <input type="text" id="search-title" placeholder="Album Title" autocomplete="on">
         <input type="text" id="search-artist" placeholder="Artist" autocomplete="on">
@@ -303,12 +240,8 @@
         <button onclick="searchAlbums()">Search</button>
     </div>
     <div id="results" class="results-container"></div>
-
-    <!-- Album Details Modal -->
     <div id="albumModal" class="modal" onclick="closeModal()">
-        <div id="modalContent" class="modal-content" onclick="event.stopPropagation()">
-            <!-- Album details will be populated here by JavaScript -->
-        </div>
+        <div id="modalContent" class="modal-content" onclick="event.stopPropagation()"></div>
     </div>
 </body>
 </html>
