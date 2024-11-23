@@ -73,6 +73,8 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
             cursor: pointer;
             transition: transform 0.2s ease;
+            width: 200px;
+            margin: 0 auto;
         }
         .album-card:hover {
             transform: scale(1.05);
@@ -182,12 +184,11 @@
                     albumElement.className = 'album-card';
                     albumElement.innerHTML = `
                         <img src="${album.cover_image}" alt="${album.title} cover">
-                        <h3>${album.title}</h3>
+                        <h3>[${album.shelf_label}] ${album.title}</h3>
                         <p><strong>Artist:</strong> ${album.artist}</p>
                         <p><strong>Genre:</strong> ${album.genre}</p>
                         <p><strong>Style:</strong> ${album.style}</p>
                         <p><strong>Year:</strong> ${album.year}</p>
-                        <p><strong>Shelf Location:</strong> ${album.shelf_label}</p>
                     `;
                     albumElement.onclick = () => showAlbumDetails(album);
                     resultsContainer.appendChild(albumElement);
