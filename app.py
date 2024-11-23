@@ -87,5 +87,33 @@ def search():
 
     return jsonify(albums)
 
+@app.route('/api/get_all_data', methods=['GET'])
+def get_all_data():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    query = "SELECT * FROM album"
+    cursor.execute(query)
+
+    results = cursor.fetchall()
+    conn.close()
+
+    albums = []
+    for row in results:
+        tracklist = json.loads(row["tracklist"]) if row["tracklist"] else []
+        albums.append({
+            "id": row["id"],
+            "title": row["title"],
+            "artist": row["artist"],
+            "tracklist": tracklist,
+            "shelf_label": row["shelf_label"],
+            "cover_image": row["cover_image"],
+            "style": row["style"],
+            "genre": row["genre"],
+            "year": row["year"],
+            "discogs_link": row["discogs_link"],
+        })
+
+    return jsonify(albums)
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=3000)

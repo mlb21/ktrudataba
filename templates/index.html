@@ -61,7 +61,7 @@
         }
         .results-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(170px, 225px));
             gap: 20px;
             padding: 20px;
         }
@@ -154,12 +154,28 @@
         }
     </style>
     <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            searchAlbums();
+        })
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInputs = document.querySelectorAll('.search-container input');
+
+            searchInputs.forEach(input => {
+                input.addEventListener('keypress', event => {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        searchAlbums();
+                    }
+                });
+            });
+        });
+
         async function searchAlbums() {
             const title = document.getElementById('search-title').value;
             const artist = document.getElementById('search-artist').value;
-            const genres = document.getElementById('search-genre').value.split(',').map(g => g.trim());
-            const yearStart = document.getElementById('year-start').value;
-            const yearEnd = document.getElementById('year-end').value;
+            const genres = document.getElementById('search-genre').value.split(',').map(g => g.trim());;
             const styles = document.getElementById('search-style').value.split(',').map(g => g.trim());
             const shelfLabel = document.getElementById('search-shelf-label').value;
 
@@ -173,7 +189,6 @@
                     artist: artist, 
                     genre: genres,
                     style: styles,
-                    year: yearStart && yearEnd ? [yearStart, yearEnd] : [],
                     shelf_label: shelfLabel 
                 })
             });
@@ -233,8 +248,6 @@
         <input type="text" id="search-artist" placeholder="Artist" autocomplete="on">
         <input type="text" id="search-genre" placeholder="Genre" autocomplete="on">
         <input type="text" id="search-style" placeholder="Style" autocomplete="on">
-        <input type="number" id="year-start" placeholder="Year Start" min="1900" max="2024">
-        <input type="number" id="year-end" placeholder="Year End" min="1900" max="2024">
         <input type="text" id="search-shelf-label" placeholder="Shelf Label" autocomplete="on">
         <button onclick="searchAlbums()">Search</button>
     </div>
