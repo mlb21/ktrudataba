@@ -20,6 +20,7 @@ def search():
     data = request.get_json()
     title = data.get('title', '')
     artist = data.get('artist', '')
+    tracklist = data.get('tracklist', [])
     genres = data.get('genre', [])
     styles = data.get('style', [])
     year_start = data.get('year_start')

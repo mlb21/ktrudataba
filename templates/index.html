@@ -124,6 +124,11 @@
             border-radius: 8px;
             border: 1px solid #FFC300; /* Yellow border */
         }
+        .modal-details {
+            margin-left: 20px;
+            width: calc(100% - 150px);
+        }
+
         .modal-details h2 {
             margin: 0;
             font-size: 1.5rem;
@@ -185,10 +190,7 @@
                     albumElement.innerHTML = `
                         <img src="${album.cover_image}" alt="${album.title} cover">
                         <h3>[${album.shelf_label}] ${album.title}</h3>
-                        <p><strong>Artist:</strong> ${album.artist}</p>
-                        <p><strong>Genre:</strong> ${album.genre}</p>
-                        <p><strong>Style:</strong> ${album.style}</p>
-                        <p><strong>Year:</strong> ${album.year}</p>
+                        <p>${album.artist}</p>
                     `;
                     albumElement.onclick = () => showAlbumDetails(album);
                     resultsContainer.appendChild(albumElement);
@@ -214,10 +216,6 @@
                     <p><strong>Style:</strong> ${album.style}</p>
                     <p><strong>Year:</strong> ${album.year}</p>
                     <p><strong>Shelf Location:</strong> ${album.shelf_label}</p>
-                    <div class="tracklist">
-                        <strong>Tracklist:</strong><br>
-                        ${album.tracklist.map(track => `<p>${track}</p>`).join('')}
-                    </div>
                 </div>
             `;
             modal.style.display = 'flex';
