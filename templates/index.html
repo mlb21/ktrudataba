@@ -61,39 +61,40 @@
         }
         .results-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
             padding: 20px;
         }
         .album-card {
             background-color: #222; /* Dark gray */
-            padding: 15px;
+            padding: 20px;
             border-radius: 10px;
             border: 1px solid #FFC300; /* Yellow border */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
             cursor: pointer;
             transition: transform 0.2s ease;
-            width: 200px;
             margin: 0 auto;
+            min-width: 250px;
         }
         .album-card:hover {
             transform: scale(1.05);
         }
         .album-card img {
-            width: 100%;
-            height: auto;
+            width: 225px;
+            height: 225px;
             border-radius: 8px;
             margin-bottom: 10px;
             border: 1px solid #FFC300; /* Yellow border around images */
+            position: center;
         }
         .album-card h3 {
-            font-size: 1.2rem;
+            font-size: 1rem;
             margin: 0 0 10px;
             color: #FFC300; /* Yellow text */
         }
         .album-card p {
             margin: 0 0 10px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: #FFF; /* White text for secondary information */
         }
         .modal {
